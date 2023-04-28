@@ -1,0 +1,36 @@
+package ex03;
+
+class Apple{
+	@Override
+	public String toString() {
+		return "I am Apple";
+	}
+}
+
+class Orange{
+	@Override
+	public String toString() {
+		return "I am Orange";
+	}
+}
+
+class Box{	// 사과, 오렌지 담는 박스
+	private Object obj; 
+
+	public Object getAp() {
+		return obj;
+	}
+						// 다 받아줄 수 있는 Object 사용
+	public void setAp(Object obj) {
+		this.obj = obj;
+	}
+}
+
+
+public class FruitAndBox {
+
+	public static void main(String[] args) {
+
+	}
+
+}

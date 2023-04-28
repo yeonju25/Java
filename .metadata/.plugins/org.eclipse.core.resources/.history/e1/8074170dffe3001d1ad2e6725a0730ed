@@ -1,0 +1,48 @@
+package ex05;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+
+public class Exam01 {
+
+	public static <BufferedWriter> void main(String[] args) throws IOException {
+		
+		String filePath = "C:/data/sample.txt"; // 읽어올 파일 경로
+
+		
+		
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
+			String line = null;
+			
+			while((line = reader.readLine()) != null) {
+				System.out.println(line);
+				}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			
+			reader.close(); // 파일을 썼으면 닫아줘야 한다~~
+		}
+		
+		public static void throws IOException {
+
+			String filePath2 = "C:/data/data.txt";
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); // 선언
+			bw.write("Hello World");
+			bw.flush(); // write로 담은 내용 출력 후, 버퍼를 비움.
+			bw.close(); 
+	}
+//		BufferedWriter bw = new BufferedWriter(new FileReader(filePath));   
+//		String s = "abcdefg";   //출력할 문자열
+//		bw.write(s+"\n");   //버퍼에 있는 값 전부 출력
+//		bw.flush();   //남아있는 데이터를 모두 출력시킴
+//		bw.close();   //스트림을 닫음
+//		
+	}
+}

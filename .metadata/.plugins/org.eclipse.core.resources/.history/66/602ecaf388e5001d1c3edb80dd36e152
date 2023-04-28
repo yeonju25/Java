@@ -1,0 +1,36 @@
+package ex08;
+class Box<T>{
+	private T ob;
+
+	public T getOb() {
+		return ob;
+	}
+
+	public void setOb(T ob) {
+		this.ob = ob;
+	}
+}
+
+class Toy{
+	public String toString() {
+		return "I am a Toy()";
+	}
+}
+
+class BoxHandler{
+	public static void outBox(Box<Toy> box) {
+		Toy toy = box.getOb();
+		System.out.println(toy);
+	}
+	
+	public static void inBox(Box<Toy> box, Toy n) {
+		
+	}
+}
+public class BoundedWildcardBase {
+
+	public static void main(String[] args) {
+
+	}
+
+}

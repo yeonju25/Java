@@ -1,0 +1,9 @@
+package ex09;
+
+public class WildcardBase {
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,9 @@
+package ex02;
+
+public class FruitAndBox {
+
+	public static void main(String[] args) {
+
+	}
+
+}

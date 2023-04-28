@@ -1,0 +1,29 @@
+package ex01;
+
+class Card{
+	void info() {
+		System.out.println("card()");
+	}
+}
+
+public class Exam01 {
+	
+	public static void main(String[] args) {
+		Card card = new Card();
+		card.info();
+		
+		
+		
+	  // 클래스 경로, 위치 알아보기~
+		Class cObj = new Card().getClass();
+//		Class cObj = Card.class;
+//		Class cObj = Class.forName("ex01.Card");
+//		Object obj = Class.forName("ex01.Card");
+		System.out.println(cObj); 
+		
+		
+		
+		
+		
+	}
+}

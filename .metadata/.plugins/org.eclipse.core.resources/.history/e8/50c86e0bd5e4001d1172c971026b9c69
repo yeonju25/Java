@@ -1,0 +1,31 @@
+package ex08;
+class Box<T>{
+	T ob;
+	public void set(T o) {
+		ob = o;
+	}
+	public T get() {
+		return ob;
+	}
+}
+
+class SteelBox<T> extends Box<T>{
+	public SteelBox(T o) {
+		ob = o;
+	}
+}
+
+public class GenericInheritance {
+
+	public static void main(String[] args) {
+		
+		// Box가 SteelBox의 상위클래스이기 때문에 이렇게 가능
+		Box<Integer> iBox = new SteelBox(100);
+		Box<String> sBox = new SteelBox("korea");
+		System.out.println(iBox.get());
+		System.out.println(sBox.get());
+		Box<Integer> iiBox = new SteelBox("kim");
+		
+	}
+
+}

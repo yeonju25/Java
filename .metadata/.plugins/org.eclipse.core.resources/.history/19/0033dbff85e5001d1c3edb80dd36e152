@@ -1,0 +1,9 @@
+package ex08;
+
+public class BoundedWildcardBase {
+
+	public static void main(String[] args) {
+
+	}
+
+}

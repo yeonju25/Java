@@ -1,0 +1,20 @@
+package ex03;
+
+public class Exam01 {
+
+	public static void main(String[] args) {
+		
+		String[] arr = { "100", "eng", "200" };
+		try {
+			for(int i=0; i<arr.length+1; i++) {
+				int value = Integer.parseInt(arr[i]);
+				System.out.println(value);
+			}
+		}catch(ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		System.out.println("프로그램 종료");
+	}
+}

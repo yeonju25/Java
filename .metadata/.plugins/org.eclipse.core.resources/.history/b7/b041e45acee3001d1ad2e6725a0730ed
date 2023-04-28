@@ -1,0 +1,9 @@
+package ex10;
+
+public class CalcExam {
+
+	public static void main(String[] args) {
+
+	}
+
+}

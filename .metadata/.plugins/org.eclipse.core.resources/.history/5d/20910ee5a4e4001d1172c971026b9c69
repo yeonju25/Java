@@ -1,0 +1,36 @@
+package ex03;
+// 아래 point 클래스와 Rectangle클래스에 내용 비교를 위한 equals 메소드를 각각 삽입하자.
+// 그리고 정의한 equals 메소드의 확인을 위한 main메소드 직접 구현하자.
+class Point {
+	private int xPos;
+	private int yPos;
+
+	public Point(int xPos, int yPos) {
+		this.xPos = xPos;
+		this.yPos = yPos;
+	}
+}
+
+class Rectangle{
+	private Point upperLeft; //좌측상단좌표
+	private Point lowerRight; //우측하단좌표
+
+	public Rectangle(int x1, int y1, int x2, int y2) {
+
+		upperLeft = new Point(x1,y1);
+		lowerRight = new Point(x2,y2);
+	}
+
+}
+
+
+
+public class Exam {
+	public static void main(String[] args) {
+
+	Rectangle rec = new Rectangle(50, 50, 10, 10);
+	Rectangle rec2 = new Rectangle(50, 50, 10, 10);
+	System.out.println(rec.equals(rec2));
+// 이런식으로 입력했을때 true나오도록 equals 오버라이딩해서 만들기
+	}
+}

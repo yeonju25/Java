@@ -1,0 +1,22 @@
+package ex01;
+
+class Card{
+	void info() {
+		System.out.println("card()");
+	}
+}
+
+public class Exam01 {
+	
+	public static void main(String[] args) {
+//		Card card = new Card();
+//		card.info();
+		
+		Class cObj = new Card().getClass();
+		System.out.println(cObj);
+		
+		
+		
+		
+	}
+}

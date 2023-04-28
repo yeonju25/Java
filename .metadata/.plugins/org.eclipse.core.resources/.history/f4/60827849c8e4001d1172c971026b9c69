@@ -1,0 +1,9 @@
+package ex06;
+
+public class BoundedGenericMethod {
+
+	public static void main(String[] args) {
+
+	}
+
+}

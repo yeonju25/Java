@@ -1,0 +1,75 @@
+package ex01;
+
+public interface Ramda {
+	public void num (int x, int y);
+}
+	
+	
+class plus implements Ramda{
+
+	@Override
+	public void num(int x, int y) {
+		System.out.println("x+y : " +(x+y));
+	}
+}
+class minus implements Ramda{
+	
+	@Override
+	public void num(int x, int y) {
+		System.out.println("x-y : " +(x-y));
+	}
+}
+class multiply implements Ramda{
+	
+	@Override
+	public void num(int x, int y) {
+		System.out.println("x*y : " +(x*y));
+	}
+}
+class division implements Ramda{
+	
+	@Override
+	public void num(int x, int y) {
+		System.out.println("x/y : " +(x/y));
+	}
+}
+
+class Test {
+
+	public static void main(String[] args) {
+		
+		Ramda pr = new plus();
+		pr.num(3, 3);
+		
+		Ramda prr = new Ramda() {
+
+			@Override
+			public void num(int x, int y) {
+				System.out.println("x+y : " +(x+y));
+			}
+		};
+		prr.num(3, 3);
+		
+		Ramda prrr 
+		
+		
+		
+		
+
+		
+		
+		
+		
+		
+//		Ramda r = new Ramda() {
+//
+//			@Override
+//			public void num(int x, int y) {
+//				System.out.println("x+y : " +(x+y));
+//			}
+//		};
+//
+//		r.num(4, 10);
+	}
+}
+
