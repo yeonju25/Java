@@ -1,5 +1,0 @@
-package ex10;
-
-public interface Calc {
-
-}

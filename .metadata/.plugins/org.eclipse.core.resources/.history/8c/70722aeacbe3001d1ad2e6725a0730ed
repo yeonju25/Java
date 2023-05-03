@@ -1,7 +1,0 @@
-package ex01;
-
-public interface Ramda {
-	public void num (int x, int y);
-	
-
-}
