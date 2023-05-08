@@ -17,7 +17,7 @@ public class MyFirstStream {
 		int total = stm1.distinct().filter(n-> n%2 ==0).sum();
 		System.out.println("total : " + total);
 		
-		// 배열에서 중복 제거 후 홀수 개수는 몇개인가?
+		// 배열에서 중복 제거 후 홀수 개수는 몇 개인가?
 		stm1 = Arrays.stream(ar); // 스트림은 일회용, 최종연산 끝나서 위에 꺼 다시 못씀, 다시 만들어야 함
 		long count = stm1.distinct().filter(n->n%2 ==1).count();
 		System.out.println("홀수 개수 : " + count);
@@ -48,7 +48,7 @@ public class MyFirstStream {
 		
 		// 1. 리스트를 스트림으로 변환 후 출력
 		Stream<String> s = list.stream();
-		s.forEach(n-> System.out.println(n));
+		s.sorted().forEach(n-> System.out.println(n)); // sorted() : 정렬
 		
 		// 2. 리스트 글자 개수 합을 출력
 		s = list.stream();
@@ -58,7 +58,24 @@ public class MyFirstStream {
 		s = list.stream();
 		int sum = s.mapToInt(n->n.length()).sum();	// 맵으로 나온 결과 자체를 숫자로 변환해줌
 		System.out.println("sum : " + sum);			// 글자수의 합을 출력
+	
+		// 스트림을 이해하기 위해 함수형 인터페이스를 람다식으로 변환해서 쓰거나 하는 내용들을 먼저 이해하면 좋다.
 		
-		
+//		boolean t = test(11);
+//		//System.out.println(t);
 	}
-}
+	
+	
+	
+	// 아래 내용들은 위에 사용한 람다식을 이해하기 위해 예시를 들어서 만들어 본 것 
+	
+	static int apply(String s) {
+		return s.length();
+	}
+	static boolean test(int n) {
+		return n %2 ==0;
+	}
+	static void accept(String str) {
+		System.out.println(str);
+	}
+}	
