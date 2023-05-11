@@ -1,0 +1,142 @@
+-- 전체 테이블 조회
+select *
+from all_tables;
+
+-- 테이블 전체 조회
+select *
+from DEPARTMENTS;
+
+-- 특정 컬럼만 조회
+select DEPARTMENT_id, department_name
+from DEPARTMENTS;
+
+-- 별칭(애칭) 사용하기 / as 안 붙여도 결과는 나오지만 붙여주는 게 좋다
+select department_id as 부서번호, department_name as 부서명 
+from DEPARTMENTS;
+
+-- 중복 제거
+select distinct location_id
+from DEPARTMENTS;
+
+-- 연결 연산자(||)
+select first_name || last_name as full_name
+from EMPLOYEES;
+
+-- "" 큰 따옴표 안됨 ---> '' 작은 따옴표
+select 'First_' || last_name as 성명
+from EMPLOYEES;
+
+-- 산술연산
+select salary , salary*1.1 as 인상
+from EMPLOYEES;
+
+-- countries 테이블에서 컬럼명 country_id를 국가ID, country_name을 국가명으로 조회
+select country_id as 국가ID, country_name as 국가명
+from countries;
+
+-- countries 테이블에서 region_id를 중복제외하고 조회
+select distinct region_id
+from COUNTRIES;
+
+-- countries 테이블에서 country_name과 country_id를 연결하여 조회
+select country_name || country_id
+from COUNTRIES;
+
+-- jobs 테이블에서 job_title, min_salary, max_salary 컬럼을 최소연봉과 최대연봉을 10% 인상된 상태로 조회
+select job_title, min_salary*1.1, max_salary*1.1
+from JOBS;
+
+-- where 조건 비교연산자
+-- 110번만 찾아줘
+select * 
+from EMPLOYEES
+where EMPLOYEE_ID = 110;
+
+-- 110번이 아닌 경우 찾아줘
+select * 
+from EMPLOYEES
+where EMPLOYEE_ID <> 110;
+
+select * 
+from EMPLOYEES
+where not EMPLOYEE_ID = 110;
+
+-- 110번과 같거나 큰 경우 찾아줘
+select * 
+from EMPLOYEES
+where EMPLOYEE_ID >= 110;
+
+-- 그리고는 and로 사용 / 또는은 or로 사용 
+select * 
+from EMPLOYEES
+where EMPLOYEE_ID >= 110 and EMPLOYEE_ID < 120;
+
+-- 작은 따옴표 사용 / 큰 따옴표 사용하면 오류남
+select * 
+from EMPLOYEES
+where FIRST_NAME = 'John' or LAST_NAME = 'Popp';
+
+-- not을 붙이면 조건이 아닌 경우 찾아줌 / 110과 120 사이 제외하고 나머지 찾음
+select * 
+from EMPLOYEES
+where not (EMPLOYEE_ID >= 110 and EMPLOYEE_ID < 120);
+
+-- John이랑 Popp이 아닌 경우 찾아줄 것임
+select * 
+from EMPLOYEES
+where not (FIRST_NAME = 'John' or LAST_NAME = 'Popp');
+
+-- 1. employees 테이블에서 first_name이 'David'인 직원 조회
+select *
+from EMPLOYEES
+where FIRST_NAME = 'David';
+
+-- 2. jobs 테이블에서 최소 월급이 4000 달러인 직업 조회
+select *
+from JOBS
+where MIN_SALARY = 4000;
+
+-- 3. jobs 테이블에서 최소 월급이 8000 초과인 직업 조회
+select *
+from JOBS
+where MIN_SALARY > 8000;
+
+-- 4. jobs 테이블에서 최대 월급이 10000 이하인 직업 조회
+select *
+from JOBS
+where MAX_SALARY <= 10000;
+
+-- 5. jobs 테이블에서 최소 월급이 4000 이상이고 최대 월급이 10000 이하인 직업 조회
+select *
+from JOBS
+where MIN_SALARY >= 4000 and MAX_SALARY <= 10000;
+
+-- 6. employees 테이블에서 job_id가 'IT_PROG'이면서 salary가 5000 초과인 직원 조회
+select *
+from EMPLOYEES
+where JOB_ID = 'IT_PROG' and SALARY > 5000;
+
+
+-- <<< 정렬 >>>
+
+-- first_name 이름으로 오름차순 정렬
+select first_name, last_name
+from EMPLOYEES
+order by first_name asc; -- order by first_name; asc 생략 가능
+
+-- first_name 이름으로 내림차순 정렬
+select first_name, last_name
+from EMPLOYEES
+order by first_name desc;
+
+-- COUNTRY_ID 1차 오름차순 정렬, 2차 city 내림차순 정렬
+select country_id, city
+from LOCATIONS
+order by COUNTRY_ID, city desc;
+
+-- job_id가 'ST_CLERK'인 레코드 중 first_name으로 오름차순 정렬
+-- 순서 기억 select > from > where > order by
+select *
+from EMPLOYEES
+where job_id = 'ST_CLERK'
+order by first_name;
