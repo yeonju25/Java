@@ -1,0 +1,170 @@
+-- 2일차..
+
+--BETWEEN 연산자 : 두 값의 범위에 해당하는 데이터만 출력할 때 사용되는 확장 연산자
+select *
+from EMPLOYEES
+where EMPLOYEE_ID >= 120 and EMPLOYEE_ID < 130;
+
+select *
+from EMPLOYEES
+where EMPLOYEE_ID BETWEEN 120 and 130; -- 위와 결과 값이 같다.
+
+select *
+from EMPLOYEES
+where SALARY BETWEEN 10000 and 12000;
+
+-- in 연산자 : 여러 개의 값을 지정하여 일치하는 데이터만 출력
+select *
+from EMPLOYEES
+where first_name = 'Steven' or first_name = 'John' or first_name = 'Peter';
+
+select *
+from EMPLOYEES
+where first_name in ('Steven', 'John', 'Peter'); -- 위 결과와 같다.
+
+select *
+from COUNTRIES
+where COUNTRY_ID in('US', 'IL', 'SG');
+
+-- IS NULL : 속성의 값이 null값인지를 비교하여 데이터 조회
+select *
+from LOCATIONS
+where STATE_PROVINCE is null;   -- 값이 null인 것
+
+select *
+from LOCATIONS
+where STATE_PROVINCE is not null;   -- 값이 null이 아닌 것
+
+-- LIKE 연산자 : 문자열에서 부분적으로 일치하는 것만 출력
+-- % : 0개 이상의 문자
+-- _ : 1개의 문자
+
+select *
+from LOCATIONS
+where CITY like 'South%';   -- CITY 중 South로 시작하는 레코드만 추출
+
+-- STREET_ADDRESS 열에서 중간 글자가 Vi인 레코드 추출
+select *
+from LOCATIONS
+where STREET_ADDRESS like '%Vi%';
+
+select *
+from LOCATIONS
+where city like 'South____'; -- _ 4개 입력 : South글자로 시작하고 뒷자리는 4자까지 오는 것 추출
+
+-- 연습문제
+-- 1. jobs 테이블에서 job_title 기준으로 정렬하여 직업 조회
+select *
+from JOBS
+order by JOB_TITLE asc;
+
+-- 2. countries 테이블에서 country_name 기준 내림차순으로 정렬하여 조회
+select *
+from COUNTRIES
+ORDER BY COUNTRY_NAME desc;
+
+-- 3. employees 테이블에서 salary가 10000에서 12000 사이인 직원 조회
+select *
+from EMPLOYEES
+where salary BETWEEN 10000 AND 12000;
+
+-- 4. employees 테이블에서 job_id가 'IT_PROG'와 'ST_MAN'인 직원 조회
+select *
+from EMPLOYEES
+where JOB_ID ='IT_PROG' or JOB_ID = 'ST_MAN';
+
+SELECT *
+FROM EMPLOYEES
+WHERE JOB_ID IN ('IT_PROG', 'ST_MAN');
+
+-- 5. employees 테이블에서 manager_id가 NULL인 직원 조회
+select *
+from EMPLOYEES
+where MANAGER_ID is null;
+
+-- 6. departments 테이블에서 manager_id가 NULL이 아닌 부서 조회
+select *
+from EMPLOYEES
+where MANAGER_ID is not null;
+
+-- 7. employees 테이블에서 job_id가 'AD'로 시작하는 직원 조회
+select *
+from EMPLOYEES
+where JOB_ID like 'AD%';
+
+-- 8. employees 테이블의 first_name에서 'ni'를 포함하는 직원 조회
+select *
+from EMPLOYEES
+where first_name like '%ni%';
+
+
+-- 집합 연산자 UNION (합집합 : 중복 제외)
+select EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_ID
+from EMPLOYEES
+where DEPARTMENT_ID = 60;   -- 1번
+
+select EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_ID
+from EMPLOYEES
+where DEPARTMENT_ID = 100;  -- 2번
+
+-- 1번과 2번은 union
+select EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_ID
+from EMPLOYEES
+where DEPARTMENT_ID = 60
+UNION
+select EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_ID
+from EMPLOYEES
+where DEPARTMENT_ID = 100;
+
+select EMPLOYEE_ID, FIRST_NAME
+from EMPLOYEES
+where EMPLOYEE_ID <= 160;   -- 3번
+
+select EMPLOYEE_ID, FIRST_NAME
+from EMPLOYEES
+where EMPLOYEE_ID >= 140;   -- 4번
+
+-- 3번과 4번을 union (중복 제외)
+select EMPLOYEE_ID, FIRST_NAME
+from EMPLOYEES
+where EMPLOYEE_ID <= 160
+union
+select EMPLOYEE_ID, FIRST_NAME
+from EMPLOYEES
+where EMPLOYEE_ID >= 140;
+
+-- 3번과 4번을 union all(중복 포함)
+select EMPLOYEE_ID, FIRST_NAME
+from EMPLOYEES
+where EMPLOYEE_ID <= 160
+union all
+select EMPLOYEE_ID, FIRST_NAME
+from EMPLOYEES
+where EMPLOYEE_ID >= 140;
+
+
+select *
+from JOB_HISTORY
+where DEPARTMENT_ID >= 80;  -- 5번
+
+select *
+from JOB_HISTORY
+where DEPARTMENT_ID <= 110; -- 6번
+
+-- 5,6 union
+select *
+from JOB_HISTORY
+where DEPARTMENT_ID >= 80
+union
+select *
+from JOB_HISTORY
+where DEPARTMENT_ID <= 110;
+
+-- 5,6 union all (중복 포함)
+select *
+from JOB_HISTORY
+where DEPARTMENT_ID >= 80
+union all
+select *
+from JOB_HISTORY
+where DEPARTMENT_ID <= 110;
