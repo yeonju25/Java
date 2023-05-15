@@ -1,0 +1,64 @@
+-- 3일차... 함수
+
+-- LOWER(), UPPER(), INITCAP() : 소문자로만, 대문자로만, 첫 글자만 대문자
+SELECT FIRST_NAME, lower(FIRST_NAME), upper(FIRST_NAME), initcap(FIRST_NAME)
+FROM EMPLOYEES;
+
+-- substr() : 문자열에서 지정된 길이 숫자만큼 추출
+SELECT first_name, substr(first_name, 1, 3), substr(first_name, 3, 2) -- 3번째 위치에서 2자 추출
+FROM EMPLOYEES;
+
+-- replace() : 문자열을 찾아서 바꾸는 함수
+SELECT JOB_ID, replace(JOB_ID, 'VP', 'MVP') as 체인지
+FROM EMPLOYEES;
+
+-- CONCAT : 두 문자열을 하나로 합치는 함수
+SELECT first_name, last_name, concat(first_name, last_name) as full_name
+FROM EMPLOYEES;
+
+SELECT first_name, last_name, concat(first_name, concat(' ', last_name)) as full_name
+FROM EMPLOYEES; -- 두 단어 사이에 빈 칸 넣기
+
+-- LENGTH() : 길이,  INSTR() : 문자열 위치
+SELECT first_name, length(first_name) as 길이, instr(first_name, 'a') as a위치
+FROM EMPLOYEES;
+
+-- LPAD(), RPAD() : 특정 문자를 왼쪽, 오른쪽에서 채워주는 함수
+SELECT LPAD(first_name, 10, '*'), RPAD(first_name, 10, '#')
+FROM EMPLOYEES;
+
+-- LTRIM(), RTRIM(), TRIM()
+SELECT job_id, ltrim(JOB_ID,'A'), rtrim(JOB_ID, 'T')
+FROM EMPLOYEES;
+
+-- 연습문제
+-- 1. employees 테이블에서 first_name 첫 1 문자와 last_name을 중간에 공백을 두고 하나로 결합하여 조회
+SELECT first_name, last_name, concat(substr(first_name, 1, 1), concat(' ', last_name)) as full_name
+FROM EMPLOYEES;
+
+-- 2. employees 테이블에서 first_name과 last_name의 길이를 합쳐서 조회
+SELECT first_name, last_name, length(concat(first_name, last_name)) as name_length
+FROM EMPLOYEES;
+
+-- 3. employees 테이블에서 first_name과 salary를 출력하는데 숫자 0을 *로 출력
+SELECT first_name, replace(salary, '0', '*') as salary
+FROM EMPLOYEES;
+
+-- 4. employees 테이블에서 이름과 월급을 출력하는데 숫자 0번부터 3번까지는 *로 출력(정규표현식)
+SELECT first_name, regexp_replace(salary, '[0-3]', '*')
+FROM EMPLOYEES;
+
+-- 날짜.
+SELECT sysdate, sysdate+1, sysdate-1
+from dual;
+
+SELECT hire_date, add_months(hire_date,2)
+FROM EMPLOYEES;
+
+-- nvl : null 값을 특정값으로 치환
+SELECT DEPARTMENT_NAME, MANAGER_ID, nvl(MANAGER_ID, 100)
+FROM DEPARTMENTS;
+
+-- nvl2(확인할 값, a, b) : 값이 있으면 a로 치환, null이면 b로 치환
+SELECT DEPARTMENT_NAME, MANAGER_ID, nvl2(MANAGER_ID, '관리자있음', '관리자없음')
+FROM DEPARTMENTS;

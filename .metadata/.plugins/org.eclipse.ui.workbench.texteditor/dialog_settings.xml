@@ -7,6 +7,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="&#x09;Function&lt;A, D&gt; t = (test, D) -&gt; "/>
 			<item value="map.put(&quot;myID&quot;, &quot;1234&quot;);"/>
 			<item value="// 반환값의 타입 없음"/>
 		</list>
