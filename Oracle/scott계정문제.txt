@@ -1,0 +1,109 @@
+-- scott계정
+
+-- 문제
+-- 1. emp 에서 급여가 2000 이상인 사람을 출력하세요.
+SELECT *
+from emp
+where SAL > 2000;
+
+-- 2. emp 에서 급여 sal 가 2000 이상인 사람의 이름 ename 과 사번 empno 을 출력하세요.
+SELECT ename, empno
+from emp
+where sal > 2000;
+
+-- 3. emp 에서 이름이 'FORD'인 사람의 사번 empno 과 급여 sal 을 출력하세요.
+SELECT empno, sal
+from emp
+where ename = 'FORD';
+
+-- 4. emp 에서 입사일자 hiredate 가 82년 이후에 입사한 사람의 이름과 입사일자를 출력하세요.(날짜를 넣을때는 YY/MM/DD 형태를 사용하면 된다.)
+SELECT ename, hiredate
+from emp
+where hiredate >= '82/01/01';
+
+-- 5. emp 에서 이름이 J 가 들어가는 사원의 이름과 사번을 출력하세요.
+SELECT ename, empno
+from emp
+where ename like '%J%';
+
+-- 6. emp 에서 이름이 S 로 끝나는 사원의 이름과 사번을 출력하세요.
+SELECT ename, empno
+from emp
+where ename like '%S';
+
+-- 7. emp 에서 이름의 두번째 글자가 A 가 들어가는 사원의 이름과 사번을 출력하세요.
+SELECT ename, empno
+from emp
+where ename like '_A%';
+
+-- 8. emp 에서 보너스가 300 이거나 5000 이거나 1400 인 사람의 이름, 사번, 보너스를 출력하세요.
+SELECT ename, empno, comm
+from emp
+where comm in (300, 5000, 1400);
+
+-- 9. emp 에서 보너스가 500 에서 4000 사이의 사원의 이름과 사번, 보너스를 출력하세요.
+SELECT ename, empno, comm
+from emp
+where comm BETWEEN 500 and 4000;
+
+-- 10. emp 에서 부서가 10 이고 직책이 CLERK 인 직원이름,사번,직책(job),부서(deptno)를 출력하세요.
+SELECT ename, empno, job, deptno
+from emp
+where deptno = '10' and job = 'CLERK';
+
+-- 11. emp 에서 입사일자가 82 년 이후이거나 직책이 MANAGER 인 사람의 이름과 입사일자를 출력하세요.
+SELECT ename, hiredate
+from emp
+where HIREDATE >= '82/01/01' or JOB = 'MANAGER';
+
+-- 12. emp 에서 부서번호가 10 이 아닌 직원의 사번,이름,부서번호를 출력하세요.
+SELECT empno, ename, deptno
+from emp
+where deptno <> 10;
+--where not deptno = '10';
+
+-- 13. emp 에서 이름에 A 가 없는 직원의 사번과 이름을 출력하세요.
+SELECT empno, ename
+from emp
+where ename not like '%A%';
+
+-- 14. emp 에서 보너스가 500 에서 1400 이 아닌 직원의 사번과 보너스를 출력하세요.
+SELECT empno, comm
+from emp
+where comm not BETWEEN 500 and 1400 or comm is null;
+
+-- 15. emp 에서 매니저를 갖지 않은 직원이름을 출력하세요.
+-- null 값은 is null 로 표현한다
+SELECT ename
+from emp
+where MGR is null;
+
+-- 16. emp 에서 커미션을 받는(커미션이 null 값이 아닌) 직원이름과 커미션을 출력하세요.
+SELECT ename, comm
+from emp
+where comm is not null;
+
+-- 17. emp 에서 사번, 이름, 급여를 출력하는데 급여가 적은사람부터 출력하세요.
+SELECT empno, ename, sal
+from emp
+order by sal asc;
+
+-- 18. emp 에서 사번, 이름, 급여를 출력하는데 급여가 많은 사람부터 출력하세요.
+SELECT empno, ename, sal
+from emp
+order by sal desc;
+
+-- 19. emp 에서 사번, 이름, 급여를 출력하는데 이름이 빠른사람부터 출력하세요.
+SELECT empno, ename, sal
+from emp
+order by ename asc;
+
+-- 20. emp 에서 사번, 이름, 입사일을 출력하는데 입사일자가 최근인 사람부터 출력하세요.
+SELECT empno, ename, hiredate
+from emp
+order by hiredate desc;
+
+-- 21. emp 에서 사번, 이름, 급여를 출력하는데 먼저 급여가 많은 순서로 그리고 이름이 빠른 순서로 정열하세요.
+SELECT empno, ename, sal
+from emp
+order by sal desc, ename asc;
