@@ -9,12 +9,12 @@ public class Exercise4_11 {
 		int num3 = 0;	// 3번째 값
 		System.out.print(num1 + "," + num2);
 		
+		// 3번째 숫자는 앞 두 숫자의 합, 이 과정을 8번 반복해서 구한다.
 		for(int i=0; i<8; i++) {
-			num3 = num1 + num2;
+			num3 = num1 + num2; 
 			System.out.print("," + num3);
 			num1 = num2;
 			num2 = num3;
 		}
 	}
-
 }

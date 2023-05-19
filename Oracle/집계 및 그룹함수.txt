@@ -1,0 +1,79 @@
+-- 집계 및 그룹함수 COUNT(), SUM(), MAX(), MIN(), GROUP BY HAVING
+
+-- COUNT()
+SELECT count(*)
+FROM EMPLOYEES;
+
+SELECT count(*)
+FROM JOBS;
+
+-- SUM(), AVG() -- 급여 총합, 급여 평균
+SELECT SUM(salary), avg(salary)
+from EMPLOYEES;
+
+SELECT sum(salary)/count(salary)
+from EMPLOYEES;
+
+-- 이름을 기준으로 급여 누적 합계를 구한다.
+SELECT first_name, salary, sum(salary) over (order by first_name) as 누적급여
+from EMPLOYEES;
+
+-- max, min
+SELECT min(SALARY) as 최소급여, max(SALARY) as 최대급여
+from EMPLOYEES;
+
+-- stddev() / variance()
+SELECT stddev(SALARY) as 표준편차, variance(SALARY) as 분산
+from EMPLOYEES;
+
+-- group by
+-- job_id별로 총점, 평균 집계
+SELECT JOB_ID, sum(SALARY), avg(SALARY)
+FROM EMPLOYEES
+group by JOB_ID;
+
+-- department_id = 50 중에서 job_id별로 급여 총액, 급여 평균 집계
+-- 예) 영업부에서 직급별 급여 총액과 평균을 집계.
+SELECT JOB_ID, sum(SALARY), avg(SALARY)
+FROM EMPLOYEES
+where DEPARTMENT_ID = 50
+GROUP BY JOB_ID;
+
+-- 부서별 최소급여, 최대급여 집계(단, 입사일 2007년 이전)
+SELECT DEPARTMENT_ID, min(SALARY), max(SALARY)
+from EMPLOYEES
+where HIRE_DATE > '20070101'
+group by DEPARTMENT_ID
+order by DEPARTMENT_ID;
+
+-- department_id 50~100 사이에서 직급별 급여 총액, 급여 평균 산출
+SELECT JOB_ID, DEPARTMENT_ID, sum(SALARY), avg(SALARY) 
+FROM EMPLOYEES
+where DEPARTMENT_ID BETWEEN 50 and 100
+GROUP BY JOB_ID, DEPARTMENT_ID
+order by JOB_ID;
+
+SELECT DEPARTMENT_ID, sum(SALARY), avg(SALARY) 
+FROM EMPLOYEES
+where DEPARTMENT_ID BETWEEN 50 and 100
+GROUP BY DEPARTMENT_ID
+order by DEPARTMENT_ID;
+
+-- 급여 총액이 50000 이상 데이터만 추출
+-- 집계함수에서 특정 조건 넣으려면 having
+SELECT DEPARTMENT_ID, sum(SALARY), avg(SALARY) 
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID
+HAVING SUM(SALARY)>=50000
+order by DEPARTMENT_ID;
+
+-- 1. department_id별 급여 최대값, 급여 최소값을 구하자.
+SELECT DEPARTMENT_ID, max(SALARY), min(SALARY)
+FROM EMPLOYEES
+group by DEPARTMENT_ID;
+
+-- 2. department_id별 급여 최대값, 급여 최소값을 구하자.(단, 최대급여 10000이상)
+SELECT DEPARTMENT_ID, max(SALARY), min(SALARY)
+FROM EMPLOYEES
+group by DEPARTMENT_ID
+HAVING MAX(salary)>=10000;

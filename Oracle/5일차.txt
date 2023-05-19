@@ -1,0 +1,135 @@
+-- 5일차
+
+-- 1. jobs 테이블에서 max_salary 값의 최소값과 max_salary 값의 최대값을 조회
+SELECT min(MAX_SALARY) as 최소값, max(MAX_SALARY) as 최대값
+FROM JOBS;
+
+-- 2. jobs 테이블에서 job_title이 'Programmer'인 직업의 max_salary 값의 최소값과 max_salary 값의 최대값을 조회
+SELECT min(MAX_SALARY) as 최소값, max(MAX_SALARY) as 최대값 
+FROM JOBS
+where JOB_TITLE = 'Programmer';
+
+
+-- 3. employees 테이블에서 department_id가 50인 데이터의 hire_date 최소값과 최대값 조회
+SELECT MIN(HIRE_DATE) as 최소값, MAX(HIRE_DATE) as 최대값 
+FROM EMPLOYEES
+where DEPARTMENT_ID = '50';
+
+-- 4. employees 테이블에서 department_id가 100인 데이터의 
+-- first_name, salary, 그리고 salary의 분산값을 hire_date 정렬 기준으로 조회 
+--SELECT FIRST_NAME, SALARY, VARIANCE(salary) 
+--      OVER (ORDER BY hire_date) 
+--FROM EMPLOYEES
+--where department_id = '100';
+
+SELECT FIRST_NAME, SALARY, VARIANCE(salary) as 분산
+FROM EMPLOYEES
+where department_id = '100'
+group by FIRST_NAME, SALARY, HIRE_DATE
+order by HIRE_DATE;
+
+-- 5. employees 테이블에서 hire_date 값이 2004년 1월 1일부터 2006년 12월 31일 사이의 데이터를 job_id 기준으로 
+-- 그룹화한 뒤에  job_id와 salary 최소값과 최대값을 조회
+SELECT JOB_ID, max(SALARY), min(SALARY)
+FROM EMPLOYEES
+-- where HIRE_DATE BETWEEN '20040101' and '20061231'
+where HIRE_DATE BETWEEN to_date('2004-01-01', 'YYYY-MM-DD') and to_date('2006-12-31', 'YYYY-MM-DD')
+group by JOB_ID;
+
+-- 6. employees 테이블에서 department_id 가 50과 80인 데이터를 department_id와 job_id 기준으로 그룹화한 뒤에 
+-- department_id, job_id, salary 합계, 최소값, 최대값을 job_id 기준으로 정렬하여 조회
+SELECT DEPARTMENT_ID, JOB_ID, sum(salary), min(salary), max(salary) 
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IN (50, 80)
+group by DEPARTMENT_ID, JOB_ID
+order by JOB_ID;
+
+-- 7. employees 테이블에서 department_id와 job_id 기준으로 그룹화한 뒤에 salary 평균값이 12000 이상인 데이터만 
+--department_id, job_id, salary 최소값, 최대값, 평균을 department_id 기준으로 정렬하여 조회
+SELECT DEPARTMENT_ID, JOB_ID, min(salary), max(salary), avg(salary) 
+FROM EMPLOYEES
+group by DEPARTMENT_ID, JOB_ID
+having avg(salary) >= 12000
+order by DEPARTMENT_ID;
+
+---------------------------- JOIN
+SELECT * FROM EMPLOYEES;    -- 107건
+SELECT * FROM DEPARTMENTS;  -- 27건
+
+-- 카티션 곱
+SELECT COUNT(*)
+FROM EMPLOYEES, DEPARTMENTS;
+
+-- 동등조인
+-- 한 테이블에만 있는 건 그냥 써도 되는데 job_id처럼 양 테이블에 다 있는 테이블은 구분해줘야 함
+SELECT J.job_id, J.min_salary, J.max_salary, H.department_id
+FROM JOBS J, JOB_HISTORY H      -- 약어 지정
+where (J.JOB_ID = H.JOB_ID) and J.job_id = 'IT_PROG';
+
+SELECT department_id, jobs.JOB_ID, job_history.JOB_ID
+from jobs, job_history
+where jobs.JOB_ID = job_history.JOB_ID;
+
+-- 비동등조인 : 테이블의 동일한 컬럼 없이 다른 조건으로 조인하는 방법
+SELECT * FROM EMPLOYEES;
+SELECT * FROM JOBS;
+SELECT * FROM JOB_HISTORY;
+
+SELECT *
+FROM EMPLOYEES E, JOBS J
+WHERE E.salary BETWEEN J.min_salary and J.max_salary;
+
+-- 외부조인
+
+SELECT *            -- 동등조인, 교집합인 데이터만 보여준다, Job_id가 공통인 것만 보여준다.
+FROM jobs J, job_history H
+where J.JOB_ID = H.JOB_ID;
+
+SELECT *            -- 외부조인, 교집합 부분과 다른 부분도 보여준다. 교재 231p 그림 보면 이해 쉬움
+FROM jobs J, job_history H
+where J.JOB_ID = H.JOB_ID(+);
+
+SELECT * FROM COUNTRIES;
+SELECT * FROM LOCATIONS;
+
+SELECT * 
+FROM COUNTRIES C, LOCATIONS L
+where C.country_id = L.country_id(+);
+
+-- 1. countries 테이블과 locations 테이블을 country_id를 기준으로
+-- 조인하며 country_name, state_province, street_address를 조회
+SELECT C.country_name, L.state_province, L.street_address
+FROM COUNTRIES C, LOCATIONS L
+where C.country_id = L.country_id;
+
+--- 서브 쿼리 : 입사일이 06/01/03인 사람보다 급여가 많은 사람 구하시오.
+SELECT * FROM EMPLOYEES
+where salary >=(
+    SELECT SALARY
+    from EMPLOYEES
+    where HIRE_DATE = '06/01/03'
+);
+
+-- Steven 입사일보다 입사일이 빠른 데이터만 추출
+SELECT * FROM EMPLOYEES
+where hire_date < (
+SELECT hire_date
+from EMPLOYEES
+where first_name = 'Allan');
+
+-- 부서별 salary급여가 가장 많은 데이터만 추출
+SELECT *
+from EMPLOYEES
+where salary in(
+    select max(salary)
+    from EMPLOYEES
+    group by department_id
+);
+
+
+
+
+SELECT department_id, max(salary)
+from EMPLOYEES
+group by department_id;
+
